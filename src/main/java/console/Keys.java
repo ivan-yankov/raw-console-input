@@ -44,12 +44,15 @@ public class Keys {
     public static final Key CTRL_INSERT = new Key("CTRL+Ins");
     public static final Key CTRL_DELETE = new Key("CTRL+Del");
 
+    public static final Key BACK_SPACE = new Key("Back");
+
     public static List<Key> asList() {
         return Arrays.asList(
                 ENTER, ESC, TAB, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F12,
                 CTRL_F1, CTRL_F2, CTRL_F3, CTRL_F4, CTRL_F11,
                 INSERT, DELETE, HOME, END, PAGE_UP, PAGE_DOWN, UP, DOWN, LEFT, RIGHT,
-                CTRL_C, CTRL_V, CTRL_X, CTRL_INSERT, CTRL_DELETE
+                CTRL_C, CTRL_V, CTRL_X, CTRL_INSERT, CTRL_DELETE,
+                BACK_SPACE
         );
     }
 }

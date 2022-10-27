@@ -51,6 +51,8 @@ public class KeyAnalyzer {
         keys.put("24", Keys.CTRL_X);
         keys.put("27.91.50.59", Keys.CTRL_INSERT);
         keys.put("27.91.51.59", Keys.CTRL_DELETE);
+
+        keys.put("127", Keys.BACK_SPACE);
     }
 
     public static Key analyzeKey(int[] code) {
