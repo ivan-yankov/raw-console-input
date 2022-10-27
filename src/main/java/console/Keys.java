@@ -24,9 +24,10 @@ public class Keys {
     public static final Key CTRL_F2 = new Key("CTRL+F2");
     public static final Key CTRL_F3 = new Key("CTRL+F3");
     public static final Key CTRL_F4 = new Key("CTRL+F4");
+    public static final Key CTRL_F11 = new Key("CTRL+F11");
 
-    public static final Key INSERT = new Key("Insert");
-    public static final Key DELETE = new Key("Delete");
+    public static final Key INSERT = new Key("Ins");
+    public static final Key DELETE = new Key("Del");
     public static final Key HOME = new Key("Home");
     public static final Key END = new Key("End");
     public static final Key PAGE_UP = new Key("PageUp");
@@ -37,10 +38,18 @@ public class Keys {
     public static final Key LEFT = new Key("Left");
     public static final Key RIGHT = new Key("Right");
 
+    public static final Key CTRL_C = new Key("CTRL+C");
+    public static final Key CTRL_V = new Key("CTRL+V");
+    public static final Key CTRL_X = new Key("CTRL+X");
+    public static final Key CTRL_INSERT = new Key("CTRL+Ins");
+    public static final Key CTRL_DELETE = new Key("CTRL+Del");
+
     public static List<Key> asList() {
         return Arrays.asList(
-                ENTER, ESC, TAB, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F12, CTRL_F1, CTRL_F2, CTRL_F3, CTRL_F4,
-                INSERT, DELETE, HOME, END, PAGE_UP, PAGE_DOWN, UP, DOWN, LEFT, RIGHT
+                ENTER, ESC, TAB, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F12,
+                CTRL_F1, CTRL_F2, CTRL_F3, CTRL_F4, CTRL_F11,
+                INSERT, DELETE, HOME, END, PAGE_UP, PAGE_DOWN, UP, DOWN, LEFT, RIGHT,
+                CTRL_C, CTRL_V, CTRL_X, CTRL_INSERT, CTRL_DELETE
         );
     }
 }

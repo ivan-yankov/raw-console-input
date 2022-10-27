@@ -11,16 +11,12 @@ public class KeyAnalyzer {
     static {
         keys.put("10", Keys.ENTER);
         keys.put("27", Keys.ESC);
+        keys.put("9", Keys.TAB);
 
         keys.put("27.79.80", Keys.F1);
         keys.put("27.79.81", Keys.F2);
         keys.put("27.79.82", Keys.F3);
         keys.put("27.79.83", Keys.F4);
-
-        keys.put("27.79.53.80", Keys.CTRL_F1);
-        keys.put("27.79.53.81", Keys.CTRL_F2);
-        keys.put("27.79.53.82", Keys.CTRL_F3);
-        keys.put("27.79.53.83", Keys.CTRL_F4);
 
         keys.put("27.91.49.53", Keys.F5);
         keys.put("27.91.49.55", Keys.F6);
@@ -32,7 +28,11 @@ public class KeyAnalyzer {
         // F11 resizes terminal window
         keys.put("27.91.50.52", Keys.F12);
 
-        keys.put("9", Keys.TAB);
+        keys.put("27.79.53.80", Keys.CTRL_F1);
+        keys.put("27.79.53.81", Keys.CTRL_F2);
+        keys.put("27.79.53.82", Keys.CTRL_F3);
+        keys.put("27.79.53.83", Keys.CTRL_F4);
+        keys.put("27.91.50.51", Keys.CTRL_F11);
 
         keys.put("27.91.50.126", Keys.INSERT);
         keys.put("27.91.51.126", Keys.DELETE);
@@ -45,6 +45,12 @@ public class KeyAnalyzer {
         keys.put("27.91.66", Keys.DOWN);
         keys.put("27.91.67", Keys.RIGHT);
         keys.put("27.91.68", Keys.LEFT);
+
+        keys.put("3", Keys.CTRL_C);
+        keys.put("22", Keys.CTRL_V);
+        keys.put("24", Keys.CTRL_X);
+        keys.put("27.91.50.59", Keys.CTRL_INSERT);
+        keys.put("27.91.51.59", Keys.CTRL_DELETE);
     }
 
     public static Key analyzeKey(int[] code) {
