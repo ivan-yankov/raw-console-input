@@ -18,7 +18,7 @@ public class ConsoleReader {
                 }
             }
 
-                return KeyAnalyzer.analyzeKey(code);
+            return KeyAnalyzer.analyzeKey(code);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return new Key("Unknown");
