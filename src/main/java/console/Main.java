@@ -1,11 +1,14 @@
 package console;
 
+import either.Either;
+
 public class Main {
     public static void main(String[] args) {
         System.out.print("Press a key...");
-        Key k = ConsoleReader.readKey(true);
+        Either<String, Key> k = ConsoleReader.readKey();
+        String keyName = k.getRight().isPresent() ? k.getRight().get().getName() : k.getLeft().orElse("");
 
         System.out.println();
-        System.out.println("Key: " + k.getName());
+        System.out.println("Key: " + keyName);
     }
 }
