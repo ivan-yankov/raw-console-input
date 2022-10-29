@@ -54,6 +54,9 @@ public class KeyAnalyzer {
         keys.put("27.91.51.59", Key.CTRL_DELETE);
 
         keys.put("127", Key.BACK_SPACE);
+
+        keys.put("43", Key.PLUS);
+        keys.put("45", Key.MINUS);
     }
 
     public static Either<String, Key> analyzeKey(int[] code) {
