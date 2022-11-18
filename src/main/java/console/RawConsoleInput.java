@@ -219,7 +219,7 @@ public class RawConsoleInput {
     // CharsetDecoder is used to convert bytes to characters
 
     private static final int STDIN_FD = 0;
-    private static final int INPUT_BUFFER_SIZE = 4;
+    private static final int INPUT_BUFFER_SIZE = 8;
 
     private static Libc libc;
     private static CharsetDecoder charsetDecoder;

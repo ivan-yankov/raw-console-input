@@ -7,7 +7,6 @@ public class Main {
         System.out.print("Press a key...");
         Either<String, Key> k = ConsoleReader.readKey();
         String keyName = k.getRight().isPresent() ? k.getRight().get().getName() : k.getLeft().orElse("");
-
         System.out.println();
         System.out.println("Key: " + keyName);
     }
