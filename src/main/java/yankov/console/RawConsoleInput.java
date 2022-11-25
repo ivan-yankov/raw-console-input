@@ -11,7 +11,7 @@
 //
 // Home page: http://www.source-code.biz/snippets/java/RawConsoleInput
 
-package console;
+package yankov.console;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -31,9 +31,9 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
 /**
- * A JNA based driver for reading single characters from the console.
+ * A JNA based driver for reading single characters from the yankov.console.
  *
- * <p>This class is used for console mode programs.
+ * <p>This class is used for yankov.console mode programs.
  * It supports non-blocking reads of single key strokes without echo.
  */
 public class RawConsoleInput {
@@ -46,7 +46,7 @@ public class RawConsoleInput {
     private static boolean consoleModeAltered;
 
     /**
-     * Reads a character from the console without echo.
+     * Reads a character from the yankov.console without echo.
      *
      * @param wait <code>true</code> to wait until an input character is available,
      *             <code>false</code> to return immediately if no character is available.
@@ -63,12 +63,12 @@ public class RawConsoleInput {
     }
 
     /**
-     * Resets console mode to normal line mode with echo.
+     * Resets yankov.console mode to normal line mode with echo.
      *
      * <p>On Windows this method re-enables Ctrl-C processing.
      *
-     * <p>On Unix this method switches the console back to echo mode.
-     * read() leaves the console in non-echo mode.
+     * <p>On Unix this method switches the yankov.console back to echo mode.
+     * read() leaves the yankov.console in non-echo mode.
      */
     public static void resetConsoleMode() throws IOException {
         if (isWindows) {
@@ -214,8 +214,8 @@ public class RawConsoleInput {
 
     // Unix
 
-    // Unix version uses tcsetattr() to switch the console to non-canonical mode,
-    // System.in.available() to check whether data is available and System.in.read() to read bytes from the console
+    // Unix version uses tcsetattr() to switch the yankov.console to non-canonical mode,
+    // System.in.available() to check whether data is available and System.in.read() to read bytes from the yankov.console
     // CharsetDecoder is used to convert bytes to characters
 
     private static final int STDIN_FD = 0;
@@ -230,7 +230,7 @@ public class RawConsoleInput {
     private static int[] readUnix(boolean wait) throws IOException {
         initUnix();
         if (!stdinIsConsole) {
-            // STDIN is not a console
+            // STDIN is not a yankov.console
             return readSingleCharFromByteStream(System.in);
         }
         consoleModeAltered = true;
@@ -244,7 +244,7 @@ public class RawConsoleInput {
             }
             return readSingleCharFromByteStream(System.in);
         } finally {
-            // reset some console attributes
+            // reset some yankov.console attributes
             setTerminalAttrs(STDIN_FD, intermediateTermios);
         }
     }

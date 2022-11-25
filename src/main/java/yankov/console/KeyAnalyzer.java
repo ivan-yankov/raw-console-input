@@ -1,4 +1,4 @@
-package console;
+package yankov.console;
 
 import yankov.jutils.functional.Either;
 
