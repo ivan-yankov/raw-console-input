@@ -1,6 +1,6 @@
 package console;
 
-import either.Either;
+import yankov.jutils.functional.Either;
 
 public class Main {
     public static void main(String[] args) {

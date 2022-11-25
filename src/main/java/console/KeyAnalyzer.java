@@ -1,6 +1,6 @@
 package console;
 
-import either.Either;
+import yankov.jutils.functional.Either;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

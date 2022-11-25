@@ -1,6 +1,6 @@
 package console;
 
-import either.Either;
+import yankov.jutils.functional.Either;
 
 public class ConsoleReader {
     public static Either<String, Key> readKey() {
