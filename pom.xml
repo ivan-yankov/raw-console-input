@@ -6,7 +6,7 @@
 
     <groupId>yankov</groupId>
     <artifactId>raw-console-input</artifactId>
-    <version>1.0</version>
+    <version>latest</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
