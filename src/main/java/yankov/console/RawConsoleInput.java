@@ -13,8 +13,12 @@
 
 package yankov.console;
 
-import java.io.InputStream;
+import com.sun.jna.*;
+import com.sun.jna.ptr.IntByReference;
+import yankov.jutils.functional.Either;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -23,17 +27,10 @@ import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.jna.LastErrorException;
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.Structure;
-import com.sun.jna.Pointer;
-import com.sun.jna.ptr.IntByReference;
-
 /**
- * A JNA based driver for reading single characters from the yankov.console.
+ * A JNA based driver for reading single characters from the console.
  *
- * <p>This class is used for yankov.console mode programs.
+ * <p>This class is used for console mode programs.
  * It supports non-blocking reads of single key strokes without echo.
  */
 public class RawConsoleInput {
@@ -46,7 +43,7 @@ public class RawConsoleInput {
     private static boolean consoleModeAltered;
 
     /**
-     * Reads a character from the yankov.console without echo.
+     * Reads a character from the console without echo.
      *
      * @param wait <code>true</code> to wait until an input character is available,
      *             <code>false</code> to return immediately if no character is available.
@@ -54,21 +51,21 @@ public class RawConsoleInput {
      * -1 on EOF.
      * Otherwise an Unicode character code within the range 0 to 0xFFFF.
      */
-    public static int[] read(boolean wait) throws IOException {
+    public static Either<byte[], int[]> read(boolean wait) throws IOException {
         if (isWindows) {
-            return new int[] { readWindows(wait) };
+            return Either.right(new int[]{readWindows(wait)});
         } else {
             return readUnix(wait);
         }
     }
 
     /**
-     * Resets yankov.console mode to normal line mode with echo.
+     * Resets console mode to normal line mode with echo.
      *
      * <p>On Windows this method re-enables Ctrl-C processing.
      *
-     * <p>On Unix this method switches the yankov.console back to echo mode.
-     * read() leaves the yankov.console in non-echo mode.
+     * <p>On Unix this method switches the console back to echo mode.
+     * read() leaves the console in non-echo mode.
      */
     public static void resetConsoleMode() throws IOException {
         if (isWindows) {
@@ -214,8 +211,8 @@ public class RawConsoleInput {
 
     // Unix
 
-    // Unix version uses tcsetattr() to switch the yankov.console to non-canonical mode,
-    // System.in.available() to check whether data is available and System.in.read() to read bytes from the yankov.console
+    // Unix version uses tcsetattr() to switch the console to non-canonical mode,
+    // System.in.available() to check whether data is available and System.in.read() to read bytes from the console
     // CharsetDecoder is used to convert bytes to characters
 
     private static final int STDIN_FD = 0;
@@ -227,10 +224,10 @@ public class RawConsoleInput {
     private static Termios rawTermios;
     private static Termios intermediateTermios;
 
-    private static int[] readUnix(boolean wait) throws IOException {
+    private static Either<byte[], int[]> readUnix(boolean wait) throws IOException {
         initUnix();
         if (!stdinIsConsole) {
-            // STDIN is not a yankov.console
+            // STDIN is not a console
             return readSingleCharFromByteStream(System.in);
         }
         consoleModeAltered = true;
@@ -239,12 +236,11 @@ public class RawConsoleInput {
         setTerminalAttrs(STDIN_FD, rawTermios);
         try {
             if (!wait && System.in.available() == 0) {
-                // no input available
-                return new int[] { -2 } ;
+                throw  new RuntimeException("No input available");
             }
             return readSingleCharFromByteStream(System.in);
         } finally {
-            // reset some yankov.console attributes
+            // reset some console attributes
             setTerminalAttrs(STDIN_FD, intermediateTermios);
         }
     }
@@ -273,18 +269,22 @@ public class RawConsoleInput {
         }
     }
 
-    private static int[] readSingleCharFromByteStream(InputStream inputStream) throws IOException {
+    private static Either<byte[], int[]> readSingleCharFromByteStream(InputStream inputStream) throws IOException {
         byte[] inBuf = new byte[INPUT_BUFFER_SIZE];
         int bytesRead = inputStream.read(inBuf, 0, INPUT_BUFFER_SIZE);
         if (bytesRead == 1 && inBuf[0] == -1) {
             // EOF
-            return new int[] { -1 };
+            return Either.left(new byte[]{});
         } else {
             int[] result = new int[bytesRead];
             for (int i = 0; i < bytesRead; i++) {
-                result[i] = decodeCharFromBytes(new byte[] { inBuf[i] });
+                int c = decodeCharFromBytes(new byte[]{inBuf[i]});
+                if (c < 0) {
+                    return Either.left(inBuf);
+                }
+                result[i] = c;
             }
-            return result;
+            return Either.right(result);
         }
     }
 
