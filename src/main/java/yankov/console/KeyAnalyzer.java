@@ -26,7 +26,7 @@ public class KeyAnalyzer {
 
     public static Either<String, Key> analyzeKey(Either<byte[], int[]> input) {
         if (input.getLeft().isPresent()) {
-            return Either.left(new String(input.getLeft().get(), StandardCharsets.UTF_8));
+            return Either.left(new String(input.getLeft().get()));
         }
 
         int[] code = input.getRight().orElseThrow();
