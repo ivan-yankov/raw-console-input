@@ -23,7 +23,9 @@ public enum Key {
 
     CTRL_C("Ctrl+C"), CTRL_V("Ctrl+V"), CTRL_X("Ctrl+X"),
 
-    BACK_SPACE("Back");
+    BACK_SPACE("Back"),
+
+    SPACE("Space");
 
     private final String name;
 

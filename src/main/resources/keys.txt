@@ -47,3 +47,4 @@ Ctrl+C     |   3
 Ctrl+V     |  22
 Ctrl+X     |  24
 Back       | 127
+Space      |  32
