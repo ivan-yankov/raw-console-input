@@ -1,1 +1,1 @@
-java -cp target/raw-console-input-assembly.jar yankov.console.Main
+java -cp target/raw-console-input-assembly-latest.jar yankov.console.Main
