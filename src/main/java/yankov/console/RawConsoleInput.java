@@ -15,7 +15,7 @@ package yankov.console;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.IntByReference;
-import yankov.jutils.functional.Either;
+import yankov.jfp.structures.Either;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +53,7 @@ public class RawConsoleInput {
      */
     public static Either<byte[], int[]> read(boolean wait) throws IOException {
         if (isWindows) {
-            return Either.right(new int[]{readWindows(wait)});
+            return Either.rightOf(new int[]{readWindows(wait)});
         } else {
             return readUnix(wait);
         }
@@ -274,17 +274,17 @@ public class RawConsoleInput {
         int bytesRead = inputStream.read(inBuf, 0, INPUT_BUFFER_SIZE);
         if (bytesRead == 1 && inBuf[0] == -1) {
             // EOF
-            return Either.left(new byte[]{});
+            return Either.leftOf(new byte[]{});
         } else {
             int[] result = new int[bytesRead];
             for (int i = 0; i < bytesRead; i++) {
                 int c = decodeCharFromBytes(new byte[]{inBuf[i]});
                 if (c < 0) {
-                    return Either.left(inBuf);
+                    return Either.leftOf(inBuf);
                 }
                 result[i] = c;
             }
-            return Either.right(result);
+            return Either.rightOf(result);
         }
     }
 

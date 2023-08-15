@@ -1,10 +1,9 @@
 package yankov.console;
 
-import yankov.jutils.functional.Either;
+import yankov.jfp.structures.Either;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +16,7 @@ public class KeyAnalyzer {
                         Objects.requireNonNull(KeyAnalyzer.class.getResourceAsStream("/keys.txt"))
                 )
         ).lines().forEach(x -> {
-            List<String> cols = Arrays.stream(x.split("\\|")).map(String::trim).collect(Collectors.toList());
+            List<String> cols = Arrays.stream(x.split("\\|")).map(String::trim).toList();
             String name = cols.get(0);
             String code = cols.stream().skip(1).collect(Collectors.joining("."));
             keys.put(code, Arrays.stream(Key.values()).filter(y -> y.getName().equals(name)).findFirst().orElse(Key.UNKNOWN));
@@ -26,22 +25,22 @@ public class KeyAnalyzer {
 
     public static Either<String, Key> analyzeKey(Either<byte[], int[]> input) {
         if (input.getLeft().isPresent()) {
-            return Either.left(new String(input.getLeft().get()));
+            return Either.leftOf(new String(input.getLeft().get()));
         }
 
         int[] code = input.getRight().orElseThrow();
         String c = Arrays.stream(code).asLongStream().mapToObj(String::valueOf).collect(Collectors.joining("."));
         Key k = keys.get(c);
         if (k != null) {
-            return Either.right(k);
+            return Either.rightOf(k);
         } else {
             try {
                 if (code.length == 1) {
-                    return Either.left(String.valueOf((char) code[0]));
+                    return Either.leftOf(String.valueOf((char) code[0]));
                 }
             } catch (Exception ignored) {
             }
-            return Either.left("Unsupported key code: " + c);
+            return Either.leftOf("Unsupported key code: " + c);
         }
     }
 }

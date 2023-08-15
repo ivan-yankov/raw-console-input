@@ -1,6 +1,6 @@
 package yankov.console;
 
-import yankov.jutils.functional.Either;
+import yankov.jfp.structures.Either;
 
 public class ConsoleReader {
     public static Either<String, Key> readKey() {
@@ -8,7 +8,7 @@ public class ConsoleReader {
             Either<byte[], int[]> input = RawConsoleInput.read(true);
             return KeyAnalyzer.analyzeKey(input);
         } catch (Exception e) {
-            return Either.left(e.getMessage());
+            return Either.leftOf(e.getMessage());
         }
     }
 }
